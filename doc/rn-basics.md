@@ -11,3 +11,17 @@ Assuming [android studio](./android-studio-setup.md) and [nodejs](./nodejs-setup
     ```
     npx react-native init RnStarter --template react-native-template-typescript
     ```
+
+* run application (dev mode)
+    - run metro server (and leave it running):
+        ```
+        yarn start
+        ```
+    - check available devices:
+        ```
+        adb devices
+        ```
+    - run bundler:
+        ```
+        yarn run android
+        ```

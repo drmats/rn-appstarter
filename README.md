@@ -17,3 +17,12 @@ My way.
 ### application
 
 * [react-native basics](./doc/rn-basics.md)
+
+<br />
+
+
+
+
+## license
+
+See the [LICENSE](./LICENSE) for details.
