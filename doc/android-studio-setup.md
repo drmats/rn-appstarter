@@ -1,4 +1,4 @@
-# Android Studio Setup
+# android studio setup
 
 Assuming linux with bash and gnome shell.
 
