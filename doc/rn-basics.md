@@ -23,7 +23,7 @@ Assuming [android studio](./android-studio-setup.md) and [nodejs](./nodejs-setup
         ```
     - run bundler:
         ```
-        yarn run android
+        yarn android
         ```
 
 * build and deploy release version (android)
