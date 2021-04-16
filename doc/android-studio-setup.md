@@ -1,6 +1,6 @@
 # Android Studio Setup
 
-Assuming linux.
+Assuming linux with bash and gnome shell.
 
 <br />
 

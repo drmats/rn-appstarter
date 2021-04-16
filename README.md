@@ -10,3 +10,4 @@ My way.
 ## documentation
 
 * [android studio setup](./doc/android-studio-setup.md)
+* [nodejs setup](./doc/nodejs.md)
