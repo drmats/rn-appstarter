@@ -9,8 +9,22 @@
 
 
 
-import { share } from "mem-box";
+import {
+    useMemory as useGenericMemory,
+    share,
+} from "mem-box";
+import { isObject } from "@xcmats/js-toolbox/type";
+
+import * as config from "./config";
 import App from "./components/app";
+
+
+
+
+/**
+ * Type-safe instance of useMemory.
+ */
+export const useMemory: (() => Ctx) = useGenericMemory;
 
 
 
@@ -20,14 +34,25 @@ import App from "./components/app";
  */
 export default function init (): { (): JSX.Element } {
 
-    // eslint-disable-next-line no-console
-    const logger = console;
+    const
+        // app memory - volatile, imperative context/storage
+        ctx = useMemory(),
+
+        // eslint-disable-next-line no-console
+        logger = console;
 
     // share
     share({ logger });
 
     // greet
     logger.info("Boom! 💥");
+
+    // expose dev. namespace and some convenience shortcuts
+    if (!isObject(window[config.devNamespaceKey])) {
+        window[config.devNamespaceKey] = {
+            config, ctx,
+        };
+    }
 
     return App;
 
@@ -38,6 +63,11 @@ export default function init (): { (): JSX.Element } {
 
 // merge into global declarations
 declare global {
+
+    // DOM Window
+    interface Window {
+        [key: string]: unknown;
+    }
 
     // shared memory
     interface Ctx {
