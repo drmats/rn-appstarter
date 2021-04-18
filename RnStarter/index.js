@@ -1,7 +1,7 @@
 /**
- * Metro configuration for React Native.
+ * Application entry point.
  *
- * @module @xcmats/metro-config
+ * @module @xcmats/index
  * @license MIT
  * @copyright Mat. 2021-present
  */
@@ -10,7 +10,7 @@
 
 
 import { AppRegistry } from "react-native";
-import App from "./src/components/app";
+import init from "./src/init";
 import { name as appName } from "./app.json";
 
 
@@ -19,4 +19,4 @@ import { name as appName } from "./app.json";
 /**
  * App entry point.
  */
-AppRegistry.registerComponent(appName, () => App);
+AppRegistry.registerComponent(appName, init);
