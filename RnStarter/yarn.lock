@@ -653,6 +653,14 @@
     pirates "^4.0.0"
     source-map-support "^0.5.16"
 
+"@babel/runtime-corejs3@^7.13.10":
+  version "7.13.10"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.13.10.tgz#14c3f4c85de22ba88e8e86685d13e8861a82fe86"
+  integrity sha512-x/XYVQ1h684pp1mJwOV4CyvqZXqbc8CMsMGUnAbuc82ZCdv1U63w5RSUzgDSXQHG5Rps/kiksH6g2D5BuaKyXg==
+  dependencies:
+    core-js-pure "^3.0.0"
+    regenerator-runtime "^0.13.4"
+
 "@babel/runtime@7.13.10", "@babel/runtime@^7.8.4":
   version "7.13.10"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.13.10.tgz#47d42a57b6095f4468da440388fdbad8bebf0d7d"
@@ -1070,6 +1078,13 @@
   dependencies:
     "@typescript-eslint/types" "4.22.0"
     eslint-visitor-keys "^2.0.0"
+
+"@xcmats/js-toolbox@^0.12.4":
+  version "0.12.4"
+  resolved "https://registry.yarnpkg.com/@xcmats/js-toolbox/-/js-toolbox-0.12.4.tgz#92d3dbffa1b5650b98eb8a65edc18ab1545b4e61"
+  integrity sha512-e9IvsoJSQAeWM2jXuzI7hoTRpHYRMFemUwip0B3eAQvKZAXYjYBrG7brYp/uw39BFhqF7j/ktwwx1cpabykIUw==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.13.10"
 
 abort-controller@^3.0.0:
   version "3.0.0"
@@ -1742,6 +1757,11 @@ core-js-compat@^3.9.1:
   dependencies:
     browserslist "^4.16.3"
     semver "7.0.0"
+
+core-js-pure@^3.0.0:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.10.1.tgz#28642697dfcf02e0fd9f4d9891bd03a22df28ecf"
+  integrity sha512-PeyJH2SE0KuxY5eCGNWA+W+CeDpB6M1PN3S7Am7jSv/Ttuxz2SnWbIiVQOn/TDaGaGtxo8CRWHkXwJscbUHtVw==
 
 core-util-is@~1.0.0:
   version "1.0.2"
@@ -3271,6 +3291,14 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
+
+mem-box@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/mem-box/-/mem-box-1.0.6.tgz#673a468cc72e6e2c8dd16059cad09e3101110da3"
+  integrity sha512-NsOe6Ohyj6Z/d15wFGb5wjowHnsLqSsE166ZdgwHyL7tPATluIfK5fNzIOpXEBEfrL24cM7y2Flosdr4kgyIfg==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.13.10"
+    "@xcmats/js-toolbox" "^0.12.4"
 
 merge-stream@^2.0.0:
   version "2.0.0"

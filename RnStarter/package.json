@@ -10,6 +10,8 @@
         }
     ],
     "dependencies": {
+        "@xcmats/js-toolbox": "^0.12.4",
+        "mem-box": "^1.0.6",
         "react": "17.0.1",
         "react-native": "0.64.0"
     },
