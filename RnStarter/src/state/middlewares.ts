@@ -16,6 +16,8 @@ import { createLogger } from "redux-logger";
 import { useMemory } from "../init";
 import { reduxDevtoolsAvailable } from "./redux";
 
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 
 
 
@@ -36,6 +38,12 @@ export default function createMiddlewares (): Middleware[] {
             duration: true,
             timestamp: false,
             logger: ctx.logger,
+            level: {
+                // @ts-ignore
+                action: (action) => action.payload ? "info" : false,
+                nextState: false,
+                prevState: false,
+            },
         }));
     }
 
