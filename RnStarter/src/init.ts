@@ -18,6 +18,7 @@ import {
 import { isObject } from "@xcmats/js-toolbox/type";
 
 import { createReduxStore } from "./state/redux";
+import createLogger from "./logger";
 import createRootWrapper from "./app/root";
 import Layout from "./layout/main";
 import * as config from "./config";
@@ -46,8 +47,8 @@ export const useMemory: (() => Ctx) = useGenericMemory;
  */
 export default function init (): FC {
 
-    // default console logger
-    const logger = console;
+    // default console logger (enabled only in dev mode)
+    const logger = createLogger();
     share({ logger });
 
     // redux store
