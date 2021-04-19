@@ -20,6 +20,7 @@ import {
     useColorScheme,
     View,
 } from "react-native";
+import { useSelector } from "react-redux";
 import {
     Colors,
     DebugInstructions,
@@ -28,6 +29,7 @@ import {
     ReloadInstructions,
 } from "react-native/Libraries/NewAppScreen";
 
+import { getTick } from "../app/selectors";
 import { useMemory } from "../init";
 
 
@@ -100,7 +102,8 @@ const Main: FC = () => {
     const backgroundStyle = {
         backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     };
-    const { fx } = useMemory();
+    const { act, fx } = useMemory();
+    const tick = useSelector(getTick);
 
     useEffect(() => {
         fx.app.setReady(true);
@@ -126,11 +129,10 @@ const Main: FC = () => {
                         backgroundColor:
                             isDarkMode ? Colors.black : Colors.white,
                     }}
+                    onTouchEnd={ act.app.PING }
                 >
-                    <Section title="Step One">
-                        Edit <Text style={styles.highlight}>App.js</Text> to
-                        change this screen and then come back
-                        to see your edits.
+                    <Section title="State management (touch me)">
+                        Ticks: { tick }.
                     </Section>
                     <Section title="See Your Changes">
                         <ReloadInstructions />

@@ -140,7 +140,7 @@ declare global {
         initialState: typeof initialState;
         thunk: typeof thunk;
         fx: typeof thunk;
-        middlewares: Middleware[],
+        middlewares: Middleware[];
         resetState: () => void;
     }
 

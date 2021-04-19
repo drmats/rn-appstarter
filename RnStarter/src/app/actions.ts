@@ -26,6 +26,8 @@ export enum AppActionType {
 
     CLEAR_ERROR = "App/CLEAR_ERROR",
 
+    PING = "App/PING",
+
 }
 
 
