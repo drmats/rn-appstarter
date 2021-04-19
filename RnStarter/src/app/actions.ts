@@ -17,14 +17,12 @@ import { actionCreators } from "red-goodies";
 /**
  * Action types.
  */
-export enum AppActionType {
+enum ActionTypes {
 
     RESET = "App/RESET",
 
     READY = "App/READY",
     NOT_READY = "App/NOT_READY",
-
-    CLEAR_ERROR = "App/CLEAR_ERROR",
 
     PING = "App/PING",
 
@@ -36,7 +34,7 @@ export enum AppActionType {
 /**
  * Action creators.
  */
-export default actionCreators(AppActionType, {
+export default actionCreators(ActionTypes, {
 
     // ...
     NOT_READY: (error?: string) => error ? { error } : { error: null },

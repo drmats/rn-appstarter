@@ -32,20 +32,21 @@ export default sliceReducer(initState) (
         .handle(app.RESET, () => initState)
 
         // ...
-        .handle(app.READY, (state) => ({ ...state, ready: true }))
-        .handle(app.NOT_READY, (state) => ({ ...state, ready: false }))
+        .handle(app.READY, (state) => ({
+            ...state, ready: true, error: null,
+        }))
+        .handle(app.NOT_READY, (state) => ({
+            ...state, ready: false, error: null,
+        }))
 
-        // ...
-        .handle(app.CLEAR_ERROR, (state) => ({ ...state, error: null }))
-
-        //...
+        // generic error handler
         .match(
             (action): action is Action<{ error: string }> =>
                 isWithPayload(action) && action.payload.error,
             (state, payload) => ({ ...state, error: payload.error }),
         )
 
-        // ...
+        // action counter
         .match(
             (action) => isStringActionType(action),
             (state) => ({ ...state, tick: inc(state.tick) }),
