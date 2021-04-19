@@ -100,12 +100,12 @@ const Main: FC = () => {
     const backgroundStyle = {
         backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     };
-    const { tnk } = useMemory();
+    const { fx } = useMemory();
 
     useEffect(() => {
-        tnk.app.setReady(true);
+        fx.app.setReady(true);
         return () => {
-            tnk.app.setReady(false);
+            fx.app.setReady(false);
         };
     }, []);
 

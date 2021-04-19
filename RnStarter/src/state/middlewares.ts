@@ -11,8 +11,10 @@
 
 import type { Middleware } from "redux";
 import thunk from "redux-thunk";
+import { createLogger } from "redux-logger";
 
 import { useMemory } from "../init";
+import { reduxDevtoolsAvailable } from "./redux";
 
 
 
@@ -20,9 +22,22 @@ import { useMemory } from "../init";
 /**
  * All middlewares list.
  */
-export default function middlewares (): Middleware[] {
-    const ctx = useMemory();
-    return [
-        thunk.withExtraArgument(ctx),
-    ];
+export default function createMiddlewares (): Middleware[] {
+    const
+        ctx = useMemory(),
+        ms = [];
+
+    // redux-thunk middleware
+    ms.push(thunk.withExtraArgument(ctx));
+
+    // redux-logger middleware (only in development mode)
+    if (__DEV__ && !reduxDevtoolsAvailable()) {
+        ms.push(createLogger({
+            duration: true,
+            timestamp: false,
+            logger: ctx.logger,
+        }));
+    }
+
+    return ms;
 }

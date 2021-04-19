@@ -9,7 +9,10 @@
 
 
 
-import type { Store } from "redux";
+import type {
+    Middleware,
+    Store,
+} from "redux";
 import type { ThunkAction } from "redux-thunk";
 import type { Action } from "red-goodies";
 import { share } from "mem-box";
@@ -28,7 +31,7 @@ import {
     reducer,
     thunk,
 } from "./root";
-import middlewares from "./middlewares";
+import createMiddlewares from "./middlewares";
 
 
 
@@ -87,20 +90,23 @@ export type ThunkType = ThunkAction<
 export const createReduxStore = (): Store<RootState, Action> => {
 
     let
+        // redux middlewares
+        middlewares = createMiddlewares(),
+
         // redux store
         store = createStore(
             rootReducer,
             initialState,
             getComposer()(
-                applyMiddleware(...middlewares()),
+                applyMiddleware(...middlewares),
             ),
         ),
 
         // bound actions tree
         act = bindActionCreatorsTree(action, store.dispatch),
 
-        // bound thunks tree
-        tnk = bindActionCreatorsTree(thunk, store.dispatch),
+        // bound thunks tree - effects
+        fx = bindActionCreatorsTree(thunk, store.dispatch),
 
         // all-sub-states resetting action
         resetState = () => Object.entries(act).forEach(([_, branch]) => {
@@ -109,7 +115,13 @@ export const createReduxStore = (): Store<RootState, Action> => {
 
 
     // share relevant vars
-    share({ action, act, initialState, thunk, tnk, resetState });
+    share({
+        initialState,
+        action, act,
+        thunk, fx,
+        middlewares,
+        resetState,
+    });
 
     return store;
 
@@ -127,7 +139,8 @@ declare global {
         act: typeof action;
         initialState: typeof initialState;
         thunk: typeof thunk;
-        tnk: typeof thunk;
+        fx: typeof thunk;
+        middlewares: Middleware[],
         resetState: () => void;
     }
 

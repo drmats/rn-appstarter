@@ -46,18 +46,13 @@ export const useMemory: (() => Ctx) = useGenericMemory;
  */
 export default function init (): FC {
 
-    const
-        // app memory - volatile, imperative context/storage
-        ctx = useMemory(),
+    // default console logger
+    const logger = console;
+    share({ logger });
 
-        // redux store
-        store = createReduxStore(),
-
-        // eslint-disable-next-line no-console
-        logger = console;
-
-    // share
-    share({ logger, store });
+    // redux store
+    const store = createReduxStore();
+    share({ store });
 
     // greet
     logger.info("Boom! 💥");
@@ -65,7 +60,7 @@ export default function init (): FC {
     // expose dev. namespace and some convenience shortcuts
     if (__DEV__ && !isObject(window[config.devNamespaceKey])) {
         window[config.devNamespaceKey] = {
-            config, ctx,
+            config, ctx: useMemory(),
             package: {
                 contributors,
                 dependencies,
@@ -93,7 +88,7 @@ declare global {
 
     // shared memory
     interface Ctx {
-        logger: Console;
+        logger: typeof console;
         store: ReturnType<typeof createReduxStore>;
     }
 

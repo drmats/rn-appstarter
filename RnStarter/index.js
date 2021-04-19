@@ -10,8 +10,9 @@
 
 
 import { AppRegistry } from "react-native";
+
 import init from "./src/init";
-import { name as appName } from "./app.json";
+import { name } from "./app.json";
 
 
 
@@ -19,4 +20,4 @@ import { name as appName } from "./app.json";
 /**
  * App entry point.
  */
-AppRegistry.registerComponent(appName, init);
+AppRegistry.registerComponent(name, init);
