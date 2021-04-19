@@ -10,8 +10,12 @@
 
 
 import type { FC } from "react";
-import React, { useEffect } from "react";
+import React, {
+    useEffect,
+    useState,
+} from "react";
 import {
+    Button,
     SafeAreaView,
     ScrollView,
     StatusBar,
@@ -29,6 +33,7 @@ import {
     ReloadInstructions,
 } from "react-native/Libraries/NewAppScreen";
 
+import NaiveGreeter from "../native/naive-greeter";
 import { getTick } from "../app/selectors";
 import { useMemory } from "../init";
 
@@ -63,7 +68,10 @@ const styles = StyleSheet.create({
 /**
  * ...
  */
-const Section: FC<{ title: string; }> = ({ children, title }) => {
+const Section: FC<{
+    title: string;
+    onPress?: () => void,
+}> = ({ children, title, onPress }) => {
     const isDarkMode = useColorScheme() === "dark";
     return (
         <View style={styles.sectionContainer}>
@@ -74,6 +82,7 @@ const Section: FC<{ title: string; }> = ({ children, title }) => {
                         color: isDarkMode ? Colors.white : Colors.black,
                     },
                 ]}
+                onPress={onPress}
             >
                 {title}
             </Text>
@@ -105,6 +114,10 @@ const Main: FC = () => {
     const { act, fx } = useMemory();
     const tick = useSelector(getTick);
 
+    const [greetResp, setGreetResp] = useState("No greetings...");
+    const names = ["Bob", "Alice", "Tom", "Mary", "Ed", "Jane"];
+    const [nameIndex, setNameIndex] = useState(0);
+
     useEffect(() => {
         fx.app.setReady(true);
         return () => {
@@ -129,19 +142,45 @@ const Main: FC = () => {
                         backgroundColor:
                             isDarkMode ? Colors.black : Colors.white,
                     }}
-                    onTouchEnd={ act.app.PING }
                 >
-                    <Section title="State management (touch me)">
+                    <Section
+                        title="State management (touch me)"
+                        onPress={ act.app.PING }
+                    >
                         Ticks: { tick }.
                     </Section>
-                    <Section title="See Your Changes">
-                        <ReloadInstructions />
+                    <Section title="Native interop">
+                        <View
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Button
+                                title="Spawn"
+                                color="#007799"
+                                onPress={async () => {
+                                    setGreetResp(
+                                        await NaiveGreeter.greet(
+                                            names[nameIndex],
+                                        ),
+                                    );
+                                    setNameIndex((nameIndex+1) % names.length);
+                                }}
+                            />
+                            <Text
+                                style={{
+                                    color: "#0099AA",
+                                    margin: 10,
+                                }}
+                            >
+                                {greetResp}
+                            </Text>
+                        </View>
                     </Section>
                     <Section title="Debug">
-                        <DebugInstructions />
-                    </Section>
-                    <Section title="Learn More">
-                        Read the docs to discover what to do next:
+                        <ReloadInstructions />{" "}<DebugInstructions />
                     </Section>
                     <LearnMoreLinks />
                 </View>
