@@ -9,14 +9,26 @@
 
 
 
+import type { FC } from "react";
+import { createElement } from "react";
 import {
     useMemory as useGenericMemory,
     share,
 } from "mem-box";
 import { isObject } from "@xcmats/js-toolbox/type";
 
+import { createReduxStore } from "./state/redux";
+import createRootWrapper from "./app/root";
+import Layout from "./layout/main";
 import * as config from "./config";
-import App from "./components/app";
+import {
+    contributors,
+    dependencies,
+    description,
+    devDependencies,
+    name,
+    version,
+} from "../package.json";
 
 
 
@@ -32,29 +44,44 @@ export const useMemory: (() => Ctx) = useGenericMemory;
 /**
  * Application init.
  */
-export default function init (): { (): JSX.Element } {
+export default function init (): FC {
 
     const
         // app memory - volatile, imperative context/storage
         ctx = useMemory(),
 
+        // redux store
+        store = createReduxStore(),
+
         // eslint-disable-next-line no-console
         logger = console;
 
     // share
-    share({ logger });
+    share({ logger, store });
 
     // greet
     logger.info("Boom! 💥");
 
     // expose dev. namespace and some convenience shortcuts
-    if (!isObject(window[config.devNamespaceKey])) {
+    if (__DEV__ && !isObject(window[config.devNamespaceKey])) {
         window[config.devNamespaceKey] = {
             config, ctx,
+            package: {
+                contributors,
+                dependencies,
+                description,
+                devDependencies,
+                name,
+                version,
+            },
         };
     }
 
-    return App;
+    return () => createElement(
+        createRootWrapper(store),
+        { element: createElement(Layout, null, null) },
+        null,
+    );
 
 }
 
@@ -64,14 +91,15 @@ export default function init (): { (): JSX.Element } {
 // merge into global declarations
 declare global {
 
-    // DOM Window
-    interface Window {
-        [key: string]: unknown;
-    }
-
     // shared memory
     interface Ctx {
         logger: Console;
+        store: ReturnType<typeof createReduxStore>;
+    }
+
+    // DOM window
+    interface Window {
+        [config.devNamespaceKey]: Record<string, unknown>;
     }
 
 }

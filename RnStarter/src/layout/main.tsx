@@ -1,5 +1,5 @@
 /**
- * App component.
+ * Application layout component (example starting point).
  *
  * @module @xcmats/native-app
  * @license MIT
@@ -9,7 +9,8 @@
 
 
 
-import React from "react";
+import type { FC } from "react";
+import React, { useEffect } from "react";
 import {
     SafeAreaView,
     ScrollView,
@@ -26,6 +27,8 @@ import {
     LearnMoreLinks,
     ReloadInstructions,
 } from "react-native/Libraries/NewAppScreen";
+
+import { useMemory } from "../init";
 
 
 
@@ -58,9 +61,7 @@ const styles = StyleSheet.create({
 /**
  * ...
  */
-const Section: React.FC<{
-    title: string;
-}> = ({ children, title }) => {
+const Section: FC<{ title: string; }> = ({ children, title }) => {
     const isDarkMode = useColorScheme() === "dark";
     return (
         <View style={styles.sectionContainer}>
@@ -94,11 +95,19 @@ const Section: React.FC<{
 /**
  * ...
  */
-const App = (): JSX.Element => {
+const Main: FC = () => {
     const isDarkMode = useColorScheme() === "dark";
     const backgroundStyle = {
         backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     };
+    const { tnk } = useMemory();
+
+    useEffect(() => {
+        tnk.app.setReady(true);
+        return () => {
+            tnk.app.setReady(false);
+        };
+    }, []);
 
     return (
         <SafeAreaView style={backgroundStyle}>
@@ -142,4 +151,4 @@ const App = (): JSX.Element => {
 
 
 
-export default App;
+export default Main;
