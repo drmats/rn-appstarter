@@ -14,7 +14,7 @@ import type {
     Store,
 } from "redux";
 import type { ThunkAction } from "redux-thunk";
-import type { Action } from "red-goodies";
+import type { Action } from "red-g";
 import { share } from "mem-box";
 import {
     applyMiddleware,
@@ -22,7 +22,7 @@ import {
     combineReducers,
     compose,
 } from "redux";
-import { bindActionCreatorsTree } from "red-goodies";
+import { bindActionCreatorsTree } from "red-g";
 import { isFunction } from "@xcmats/js-toolbox/type";
 
 import {

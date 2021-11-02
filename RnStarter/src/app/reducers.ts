@@ -9,12 +9,12 @@
 
 
 
-import type { Action } from "red-goodies";
+import type { Action } from "red-g";
 import {
     isStringActionType,
     isWithPayload,
     sliceReducer,
-} from "red-goodies";
+} from "red-g";
 import { inc } from "@xcmats/js-toolbox/math";
 
 import initState from "./state";

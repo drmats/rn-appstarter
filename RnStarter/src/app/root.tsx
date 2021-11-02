@@ -11,7 +11,7 @@
 
 import type { FC } from "react";
 import type { Store } from "redux";
-import type { Action } from "red-goodies";
+import type { Action } from "red-g";
 import type { InferProps } from "prop-types";
 import React from "react";
 import { Provider } from "react-redux";

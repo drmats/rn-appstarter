@@ -9,7 +9,7 @@
 
 
 
-import { actionCreators } from "red-goodies";
+import { actionCreators } from "red-g";
 
 
 
