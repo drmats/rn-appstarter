@@ -34,3 +34,8 @@ Assuming [android studio](./android-studio-setup.md) and [nodejs](./nodejs-setup
         ./gradlew clean
         ./gradlew installRelease
         ```
+
+* allow physical device with dev app to connect/reconnect with metro bundler/server:
+    ```
+    adb reverse tcp:8081 tcp:8081
+    ```
